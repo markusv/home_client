@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "nrk",
+    "plugin:inferno/recommended"
+  ],
+  "plugins": [
+    "inferno",
+    "compat"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "comma-dangle": "off",
+    "no-undef": "off",
+    "brace-style": ["error", "stroustrup", { "allowSingleLine": true }]
+  }
+}
