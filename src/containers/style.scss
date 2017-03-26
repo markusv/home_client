@@ -1,0 +1,17 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f9;
+}
+
+.buttonList {
+  list-style-type: none;
+  padding: 0;
+  margin: 1rem;
+
+  li {
+    padding: 0;
+    margin: 1rem;
+    float: left;
+  }
+}

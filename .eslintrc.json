@@ -16,6 +16,7 @@
   "rules": {
     "comma-dangle": "off",
     "no-undef": "off",
-    "brace-style": ["error", "stroustrup", { "allowSingleLine": true }]
+    "brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
+    "no-console": ["warn"]
   }
 }
