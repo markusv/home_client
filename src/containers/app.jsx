@@ -3,7 +3,8 @@ import { connect } from 'inferno-redux';
 import Component from 'inferno-component';
 import Header from '../components/header/header.jsx';
 import Button from '../components/button/button.jsx';
-import { turnOnLights, turnOffLights } from '../actions/actions.js';
+import { turnOnLights, turnOffLights, turnOffEverything } from '../actions/actions.js';
+import Spinner from '../components/spinner/spinner.jsx';
 import './style.scss';
 
 class App extends Component {
@@ -29,6 +30,7 @@ class App extends Component {
   }
 
   render() {
+    const { turnOnLightsActive, turnOffLigthsActive, turnOffEverythingActive } = this.props;
     return (
       <div>
         <Header />
@@ -37,6 +39,7 @@ class App extends Component {
             <Button
               label="Slå av alt"
               iconUrl="off.png"
+              loading={turnOffEverythingActive}
               onClick={this.turnOffEverything}
             />
           </li>
@@ -46,6 +49,7 @@ class App extends Component {
             <Button
               label="Slå på lyset"
               iconUrl="lightbulb.png"
+              loading={turnOnLightsActive}
               onClick={this.turnOnLights}
             />
           </li>
@@ -53,17 +57,23 @@ class App extends Component {
             <Button
               label="Slå av lyset"
               iconUrl="lightbulb_off.png"
+              loading={turnOffLigthsActive}
               onClick={this.turnOffLights}
             />
           </li>
         </ul>
+        <Spinner />
       </div>
     );
   }
 }
 
-const select = () => {
-  return {};
+const select = (state) => {
+  return {
+    turnOnLightsActive: state.turnOnLightsActive,
+    turnOffLigthsActive: state.turnOffLigthsActive,
+    turnOffEverythingActive: state.turnOffEverythingActive
+  };
 };
 
 export default connect(select)(App);

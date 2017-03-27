@@ -1,4 +1,5 @@
 import Inferno from 'inferno';
+import Spinner from '../spinner/spinner.jsx';
 import './style.scss';
 
 export default function MovieListItem(props) {
@@ -9,7 +10,11 @@ export default function MovieListItem(props) {
       onClick={props.onClick}
     >
       <div>
-        <img src={props.iconUrl} alt={props.label} />
+        {props.loading ?
+          <Spinner />
+          :
+          <img src={props.iconUrl} alt={props.label} />
+        }
       </div>
       {props.label}
     </button>

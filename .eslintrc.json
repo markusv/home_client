@@ -17,6 +17,7 @@
     "comma-dangle": "off",
     "no-undef": "off",
     "brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
-    "no-console": ["warn"]
+    "no-console": ["warn"],
+    "complexity": "off"
   }
 }
