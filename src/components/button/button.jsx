@@ -8,6 +8,9 @@ export default function MovieListItem(props) {
       className="homeButton"
       onClick={props.onClick}
     >
+      <div>
+        <img src={props.iconUrl} alt={props.label} />
+      </div>
       {props.label}
     </button>
   );

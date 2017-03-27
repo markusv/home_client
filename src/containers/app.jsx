@@ -13,6 +13,11 @@ class App extends Component {
 
     this.turnOnLights = this.turnOnLights.bind(this);
     this.turnOffLights = this.turnOffLights.bind(this);
+    this.turnOffEverything = this.turnOffEverything.bind(this);
+  }
+
+  turnOffEverything() {
+    this.props.dispatch(turnOffEverything());
   }
 
   turnOnLights() {
@@ -27,16 +32,27 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <ul className="buttonList">
+        <ul className="buttonList clearfix turnOffList">
+          <li>
+            <Button
+              label="Slå av alt"
+              iconUrl="off.png"
+              onClick={this.turnOffEverything}
+            />
+          </li>
+        </ul>
+        <ul className="buttonList clearfix">
           <li>
             <Button
               label="Slå på lyset"
+              iconUrl="lightbulb.png"
               onClick={this.turnOnLights}
             />
           </li>
           <li>
             <Button
               label="Slå av lyset"
+              iconUrl="lightbulb_off.png"
               onClick={this.turnOffLights}
             />
           </li>

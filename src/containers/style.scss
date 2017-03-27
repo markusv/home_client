@@ -4,14 +4,26 @@ html, body {
   background-color: #f7f7f9;
 }
 
+.clearfix:before,
+.clearfix:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+.clearfix:after {
+  clear: both;
+}
+
 .buttonList {
   list-style-type: none;
-  padding: 0;
-  margin: 1rem;
+  margin: 0;
+  padding: 2rem;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
 
   li {
     padding: 0;
-    margin: 1rem;
-    float: left;
+    margin: 0 2rem;
   }
 }
