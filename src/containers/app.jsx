@@ -4,7 +4,6 @@ import Component from 'inferno-component';
 import Header from '../components/header/header.jsx';
 import Button from '../components/button/button.jsx';
 import { turnOnLights, turnOffLights, turnOffEverything } from '../actions/actions.js';
-import Spinner from '../components/spinner/spinner.jsx';
 import './style.scss';
 
 class App extends Component {
@@ -62,7 +61,6 @@ class App extends Component {
             />
           </li>
         </ul>
-        <Spinner />
       </div>
     );
   }
