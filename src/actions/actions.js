@@ -1,5 +1,3 @@
-import config from '../config/config.js';
-
 export const TURN_OFF_EVERYTHING = 'TURN_OFF_EVERYTHING';
 export const TURN_OFF_EVERYTHING_SUCCESS = 'TURN_OFF_EVERYTHING_DONE';
 export const TURN_OFF_EVERYTHING_ERROR = 'TURN_OFF_EVERYTHING_ERROR';
@@ -31,7 +29,7 @@ const turnOffEverythingError = () => {
 export const turnOffEverything = () => {
   return (dispatch) => {
     dispatch(turnOffEverythingStart());
-    fetch(`${config.serverUrl}/turnOffEverything`)
+    fetch('/api/turnOffEverything')
       .then(() => {
         dispatch(turnOffEverythingSuccess());
       }).catch(() => {
@@ -61,7 +59,7 @@ const turnOnLightsError = () => {
 export const turnOnLights = () => {
   return (dispatch) => {
     dispatch(turnOnLightsStart());
-    fetch(`${config.serverUrl}/futurehome/turnOnHomeMode`)
+    fetch('/api/futurehome/turnOnHomeMode')
       .then(() => {
         dispatch(turnOnLightsSuccess());
       }).catch(() => {
@@ -91,7 +89,7 @@ const turnOffLightsError = () => {
 export const turnOffLights = () => {
   return (dispatch) => {
     dispatch(turnOffLightsStart());
-    fetch(`${config.serverUrl}/futurehome/turnOnSleepMode`)
+    fetch('/api/futurehome/turnOnSleepMode')
       .then(() => {
         dispatch(turnOffLightsSuccess());
       }).catch(() => {

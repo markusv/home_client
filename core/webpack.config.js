@@ -22,6 +22,10 @@ const config = {
     hot: true,
     inline: true,
     proxy: {
+      '/api': {
+        target: 'http://localhost:9333',
+        pathRewrite: {"^/api" : ""}
+      },
       '/': {
         bypass: function (req, res, proxyOptions) {
           if (req.url === '/') return 'index.html';
