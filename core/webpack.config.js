@@ -10,7 +10,7 @@ const config = {
   },
   module: {
     rules: [
-      { test: /\.jsx$/, use: 'babel-loader' },
+      { test: /\.js(x?)$/, use: 'babel-loader' },
       { test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader' },
       { test: /\.(png|jpg|jpeg)$/, loader: 'url-loader?limit=8192' }
     ]
