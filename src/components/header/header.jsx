@@ -4,7 +4,7 @@ import './style.scss';
 export default function Header() {
   return (
     <header>
-      Home
+      <img src="home.png" alt="Home" />
     </header>
   );
 }
