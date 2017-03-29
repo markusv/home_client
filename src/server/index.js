@@ -6,7 +6,7 @@ import convert from 'koa-convert';
 const app = new Koa();
 app.use(convert(serve({rootDir: path.join(__dirname, '..', '..', 'build')})));
 app.use(convert(serve({rootDir: path.join(__dirname, '..', '..', 'assets')})));
-app.listen(process.env.HTTP || 3000);
+app.listen(process.env.HTTP || 3000); //eslint-disable-line no-process-env
 
 module.exports = app;
 

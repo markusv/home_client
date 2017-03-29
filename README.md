@@ -8,5 +8,8 @@ Node verion >= 7.6.0
 2) Run with ```yarn dev```
 3) Open browser ```http://localhost:3000/```
 
-Linting: ```yarn run lint```
-    linting kjøres også ved hvert dev bygg
+
+## Production
+1) Run ```yarn build```
+2) Start server with ```yarn serve```
+3) Open browser ```http://localhost:3000/index.html```
