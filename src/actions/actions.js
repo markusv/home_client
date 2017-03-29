@@ -7,6 +7,12 @@ export const TURN_ON_LIGHTS_ERROR = 'TURN_ON_LIGHTS_ERROR';
 export const TURN_OFF_LIGHTS = 'TURN_OFF_LIGHTS';
 export const TURN_OFF_LIGHTS_SUCCESS = 'TURN_OFF_LIGHTS_SUCCESS';
 export const TURN_OFF_LIGHTS_ERROR = 'TURN_OFF_LIGHTS_ERROR';
+export const LISTEN_TO_MUSIC = 'LISTEN_TO_MUSIC';
+export const LISTEN_TO_MUSIC_SUCCESS = 'LISTEN_TO_MUSIC_SUCCESS';
+export const LISTEN_TO_MUSIC_ERROR = 'LISTEN_TO_MUSIC_ERROR';
+export const WATCH_APPLE_TV = 'WATCH_APPLE_TV';
+export const WATCH_APPLE_TV_SUCCESS = 'WATCH_APPLE_TV_SUCCESS';
+export const WATCH_APPLE_TV_ERROR = 'WATCH_APPLE_TV_ERROR';
 
 const turnOffEverythingStart = () => {
   return {
@@ -94,6 +100,66 @@ export const turnOffLights = () => {
         dispatch(turnOffLightsSuccess());
       }).catch(() => {
         dispatch(turnOffLightsError());
+      });
+  };
+};
+
+const listenToMusicStart = () => {
+  return {
+    type: LISTEN_TO_MUSIC
+  };
+};
+
+const listenToMusicSuccess = () => {
+  return {
+    type: LISTEN_TO_MUSIC_SUCCESS
+  };
+};
+
+const listenToMusicError = () => {
+  return {
+    type: LISTEN_TO_MUSIC_ERROR
+  };
+};
+
+export const listenToMusic = () => {
+  return (dispatch) => {
+    dispatch(listenToMusicStart());
+    fetch('/api/harmony/listenToMusic')
+      .then(() => {
+        dispatch(listenToMusicSuccess());
+      }).catch(() => {
+        dispatch(listenToMusicError());
+      });
+  };
+};
+
+const watchAppleTvStart = () => {
+  return {
+    type: WATCH_APPLE_TV
+  };
+};
+
+const watchAppleTvSuccess = () => {
+  return {
+    type: WATCH_APPLE_TV_SUCCESS
+  };
+};
+
+const watchAppleTvError = () => {
+  return {
+    type: WATCH_APPLE_TV_ERROR
+  };
+};
+
+export const watchAppleTv = () => {
+  return (dispatch) => {
+    dispatch(watchAppleTvStart());
+    fetch('/api/harmony/appleTv')
+      .then(() => {
+        dispatch(watchAppleTvSuccess());
+      }).catch(() => {
+        dispatch(watchAppleTvError());
       });
   };
 };

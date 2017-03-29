@@ -13,7 +13,7 @@ app.use(convert(serve({rootDir: path.join(__dirname, '..', '..', 'assets')})));
 app.use(proxy('/api', {
   target: config.serverUrl,
   changeOrigin: true,
-  rewrite: path => path.replace(/^\/api/, '')
+  rewrite: (path) => path.replace(/^\/api/, '')
 }));
 
 app.listen(process.env.HTTP || 3000); //eslint-disable-line no-process-env

@@ -9,14 +9,22 @@ import {
   TURN_ON_LIGHTS_ERROR,
   TURN_OFF_LIGHTS,
   TURN_OFF_LIGHTS_SUCCESS,
-  TURN_OFF_LIGHTS_ERROR
+  TURN_OFF_LIGHTS_ERROR,
+  LISTEN_TO_MUSIC,
+  LISTEN_TO_MUSIC_SUCCESS,
+  LISTEN_TO_MUSIC_ERROR,
+  WATCH_APPLE_TV,
+  WATCH_APPLE_TV_SUCCESS,
+  WATCH_APPLE_TV_ERROR
 } from '../actions/actions';
 
 
 const initialState = {
   turnOnLightsActive: false,
   turnOffLigthsActive: false,
-  turnOffEverythingActive: false
+  turnOffEverythingActive: false,
+  listenToMusic: false,
+  watchAppleTv: false
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -47,6 +55,24 @@ const rootReducer = (state = initialState, action) => {
     case TURN_OFF_LIGHTS_ERROR:
       return Object.assign({}, state, {
         turnOffLigthsActive: false
+      });
+    case LISTEN_TO_MUSIC:
+      return Object.assign({}, state, {
+        listenToMusic: true
+      });
+    case LISTEN_TO_MUSIC_SUCCESS:
+    case LISTEN_TO_MUSIC_ERROR:
+      return Object.assign({}, state, {
+        listenToMusic: false
+      });
+    case WATCH_APPLE_TV:
+      return Object.assign({}, state, {
+        watchAppleTv: true
+      });
+    case WATCH_APPLE_TV_SUCCESS:
+    case WATCH_APPLE_TV_ERROR:
+      return Object.assign({}, state, {
+        watchAppleTv: false
       });
     default:
       return state;
