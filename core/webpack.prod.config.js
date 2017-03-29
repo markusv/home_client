@@ -44,6 +44,11 @@ const config = {
       }
     }),
     new ExtractCSS({ filename: 'style.css', allChunks: true }),
+    new webpack.DefinePlugin({
+      'process.env.DEV': false,
+      'process.env.BROWSER': true,
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production',
       DEBUG: false
