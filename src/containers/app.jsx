@@ -28,8 +28,32 @@ class App extends Component {
     this.props.dispatch(turnOffLights());
   }
 
+  renderLightsButtons() {
+    const { turnOnLightsActive, turnOffLigthsActive } = this.props;
+    return (
+      <ul className="buttonList clearfix">
+        <li>
+          <Button
+            label="Slå på lyset"
+            iconUrl="lightbulb.png"
+            loading={turnOnLightsActive}
+            onClick={this.turnOnLights}
+          />
+        </li>
+        <li>
+          <Button
+            label="Slå av lyset"
+            iconUrl="lightbulb_off.png"
+            loading={turnOffLigthsActive}
+            onClick={this.turnOffLights}
+          />
+        </li>
+      </ul>
+    );
+  }
+
   render() {
-    const { turnOnLightsActive, turnOffLigthsActive, turnOffEverythingActive } = this.props;
+    const { turnOffEverythingActive } = this.props;
     return (
       <div>
         <Header />
@@ -43,24 +67,7 @@ class App extends Component {
             />
           </li>
         </ul>
-        <ul className="buttonList clearfix">
-          <li>
-            <Button
-              label="Slå på lyset"
-              iconUrl="lightbulb.png"
-              loading={turnOnLightsActive}
-              onClick={this.turnOnLights}
-            />
-          </li>
-          <li>
-            <Button
-              label="Slå av lyset"
-              iconUrl="lightbulb_off.png"
-              loading={turnOffLigthsActive}
-              onClick={this.turnOffLights}
-            />
-          </li>
-        </ul>
+        { this.renderLightsButtons() }
       </div>
     );
   }

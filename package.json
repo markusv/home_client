@@ -11,7 +11,7 @@
     "dev": "webpack-dev-server --config ./core/webpack.config.js --host 0.0.0.0",
     "build": "npm run build:client && npm run build:server",
     "build:client": "cross-env NODE_ENV=development webpack --config ./core/webpack.prod.config.js",
-    "build:server": "babel src/server -d build/server",
+    "build:server": "babel src/server -d build/server && babel src/config -d build/config",
     "serve": "node build/server/index.js",
     "lint": "eslint ./src --ext=.js,.jsx"
   },
@@ -23,6 +23,7 @@
     "inferno-redux": "^1.4.2",
     "koa": "^2.2.0",
     "koa-convert": "^1.2.0",
+    "koa-proxies": "^0.3.0",
     "koa-static-server": "^1.0.0",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
