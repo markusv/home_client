@@ -1,11 +1,13 @@
 const webpack = require('webpack');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 const config = {
   entry: path.join(__dirname, '..', 'src', 'entry.jsx'),
   output: {
     path: path.join(__dirname, 'build'),
-    filename: 'app.js',
+    filename: 'app-[hash:8].js',
     publicPath: 'http://localhost:' + (process.env.HTTP || 3000) + '/'
   },
   module: {
@@ -35,7 +37,11 @@ const config = {
     }
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/templates/default.hbs',
+    })
   ]
 
 };
