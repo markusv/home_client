@@ -40,7 +40,7 @@ const config = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/templates/default.hbs',
+      template: 'src/templates/default.hbs'
     })
   ]
 

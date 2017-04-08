@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractCSS = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const OfflinePlugin = require("offline-plugin");
 
 const config = {
   devtool: 'none',
@@ -54,6 +55,18 @@ const config = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/templates/default.hbs',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        conservativeCollapse: true,
+        minifyCSS: true
+      }
+    }),
+    new OfflinePlugin({
+      caches: "all",
+      responseStrategy: "network-first", // 'cache-first' | 'network-first'
+      updateStrategy: "changed", // 'changed' | 'all',
+      externals: ['home.png', 'lightbulb.png', 'lightbulb_off.png', 'off.png'],
     })
   ]
 };
