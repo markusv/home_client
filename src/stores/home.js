@@ -15,7 +15,11 @@ import {
   LISTEN_TO_MUSIC_ERROR,
   WATCH_APPLE_TV,
   WATCH_APPLE_TV_SUCCESS,
-  WATCH_APPLE_TV_ERROR
+  WATCH_APPLE_TV_ERROR,
+  LOAD_TEMPERATURE,
+  LOAD_TEMPERATURE_SUCCESS,
+  LOAD_TEMPERATURE_ERROR,
+  VISIBLITY_CHANGE
 } from '../actions/actions';
 
 
@@ -24,7 +28,10 @@ const initialState = {
   turnOffLigthsActive: false,
   turnOffEverythingActive: false,
   listenToMusic: false,
-  watchAppleTv: false
+  watchAppleTv: false,
+  loadTemperature: false,
+  temperature: -1,
+  visible: true
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -73,6 +80,23 @@ const rootReducer = (state = initialState, action) => {
     case WATCH_APPLE_TV_ERROR:
       return Object.assign({}, state, {
         watchAppleTv: false
+      });
+    case LOAD_TEMPERATURE:
+      return Object.assign({}, state, {
+        loadTemperature: true
+      });
+    case LOAD_TEMPERATURE_SUCCESS:
+      return Object.assign({}, state, {
+        loadTemperature: false,
+        temperature: action.temperature
+      });
+    case LOAD_TEMPERATURE_ERROR:
+      return Object.assign({}, state, {
+        loadTemperature: false
+      });
+    case VISIBLITY_CHANGE:
+      return Object.assign({}, state, {
+        visible: action.visible
       });
     default:
       return state;

@@ -13,6 +13,10 @@ export const LISTEN_TO_MUSIC_ERROR = 'LISTEN_TO_MUSIC_ERROR';
 export const WATCH_APPLE_TV = 'WATCH_APPLE_TV';
 export const WATCH_APPLE_TV_SUCCESS = 'WATCH_APPLE_TV_SUCCESS';
 export const WATCH_APPLE_TV_ERROR = 'WATCH_APPLE_TV_ERROR';
+export const LOAD_TEMPERATURE = 'LOAD_TEMPERATURE';
+export const LOAD_TEMPERATURE_SUCCESS = 'LOAD_TEMPERATURE_SUCCESS';
+export const LOAD_TEMPERATURE_ERROR = 'LOAD_TEMPERATURE_ERROR';
+export const VISIBLITY_CHANGE = 'VISIBLITY_CHANGE';
 
 const turnOffEverythingStart = () => {
   return {
@@ -161,5 +165,46 @@ export const watchAppleTv = () => {
       }).catch(() => {
         dispatch(watchAppleTvError());
       });
+  };
+};
+
+const loadTemperatureStart = () => {
+  return {
+    type: LOAD_TEMPERATURE
+  };
+};
+
+const loadTemperatureSuccess = (temperature) => {
+  return {
+    type: LOAD_TEMPERATURE_SUCCESS,
+    temperature
+  };
+};
+
+const loadTemperatureError = () => {
+  return {
+    type: LOAD_TEMPERATURE_TV_ERROR
+  };
+};
+
+export const fetchTemperature = () => {
+  return (dispatch, getState) => {
+    if (getState().loadTemperature) { return; } // already loading
+    dispatch(loadTemperatureStart());
+    fetch('/api/futurehome/livingroomTemperature')
+      .then((response) => {
+        response.json().then((data) => {
+          dispatch(loadTemperatureSuccess(data.temperature));
+        });
+      }).catch(() => {
+        dispatch(loadTemperatureError());
+      });
+  };
+};
+
+export const setVisibility = (visible) => {
+  return {
+    type: VISIBLITY_CHANGE,
+    visible
   };
 };

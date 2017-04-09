@@ -12,11 +12,7 @@ export default function MovieListItem(props) {
       onClick={props.onClick}
     >
       <div>
-        {props.loading ?
-          <Spinner />
-          :
-          image
-        }
+        {image}
       </div>
       {props.label}
     </button>

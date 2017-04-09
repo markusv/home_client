@@ -3,7 +3,16 @@ import { connect } from 'inferno-redux';
 import Component from 'inferno-component';
 import Header from '../components/header/header.jsx';
 import Button from '../components/button/button.jsx';
-import { turnOnLights, turnOffLights, turnOffEverything, listenToMusic, watchAppleTv } from '../actions/actions.js';
+import {
+  turnOnLights,
+  turnOffLights,
+  turnOffEverything,
+  listenToMusic,
+  watchAppleTv,
+  fetchTemperature,
+  setVisibility
+} from '../actions/actions.js';
+import Temperature from '../components/temperature/temperature.jsx';
 import './style.scss';
 
 class App extends Component {
@@ -16,6 +25,30 @@ class App extends Component {
     this.turnOffEverything = this.turnOffEverything.bind(this);
     this.startListenToMusic = this.startListenToMusic.bind(this);
     this.starWatchAppleTv = this.starWatchAppleTv.bind(this);
+    this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
+  }
+
+  componentWillMount() {
+    this.fetchTemperature();
+    document.addEventListener('visibilitychange', this.handleVisibilityChange, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.visible && nextProps.visible) {
+      this.props.dispatch(fetchTemperature());
+    }
+  }
+
+  handleVisibilityChange() {
+    this.props.dispatch(setVisibility(!document.hidden));
+  }
+
+  fetchTemperature() {
+    this.props.dispatch(fetchTemperature());
   }
 
   turnOffEverything() {
@@ -84,11 +117,22 @@ class App extends Component {
     );
   }
 
+  renderTemperature() {
+    const { temperature, loadTemperature } = this.props;
+    let temperatureToDisplay = temperature;
+    if (temperature === -1) { temperatureToDisplay = ''; }
+    return (
+      <Temperature temperature={temperatureToDisplay} loading={loadTemperature} />
+    );
+  }
+
   render() {
     const { turnOffEverythingActive } = this.props;
     return (
       <div>
-        <Header />
+        <Header>
+          {this.renderTemperature()}
+        </Header>
         <ul className="buttonList clearfix turnOffList">
           <li>
             <Button
@@ -112,7 +156,10 @@ const select = (state) => {
     turnOffLigthsActive: state.turnOffLigthsActive,
     turnOffEverythingActive: state.turnOffEverythingActive,
     listenToMusic: state.listenToMusic,
-    watchAppleTv: state.watchAppleTv
+    watchAppleTv: state.watchAppleTv,
+    loadTemperature: state.loadTemperature,
+    temperature: state.temperature,
+    visible: state.visible
   };
 };
 

@@ -1,28 +1,23 @@
-.spinner {
-  width: 6rem;
-  height: 6rem;
-  background-color: #333;
+$base-line-height: 1.5rem;
+$white: rgb(255,255,255);
+$off-white: rgba($white, 0.2);
+$spin-duration: 1s;
+$pulse-duration: 750ms;
 
-  border-radius: 100%;
-  -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
-  animation: sk-scaleout 1.0s infinite ease-in-out;
-}
-
-@-webkit-keyframes sk-scaleout {
-  0% { -webkit-transform: scale(0) }
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
   100% {
-    -webkit-transform: scale(1.0);
-    opacity: 0;
+    transform: rotate(360deg);
   }
 }
 
-@keyframes sk-scaleout {
-  0% {
-    -webkit-transform: scale(0);
-    transform: scale(0);
-  } 100% {
-      -webkit-transform: scale(1.0);
-      transform: scale(1.0);
-      opacity: 0;
-    }
+.loading {
+  border-radius: 50%;
+  width: $base-line-height;
+  height: $base-line-height;
+  border: .25rem solid $off-white;
+  border-top-color: $white;
+  animation: spin $spin-duration infinite linear;
 }
