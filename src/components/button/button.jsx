@@ -1,5 +1,4 @@
 import Inferno from 'inferno';
-import Spinner from '../spinner/spinner.jsx';
 import './style.scss';
 
 export default function MovieListItem(props) {
