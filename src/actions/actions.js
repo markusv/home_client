@@ -187,6 +187,7 @@ const loadTemperatureError = () => {
   };
 };
 
+let counter = 0;
 export const fetchTemperature = () => {
   return (dispatch, getState) => {
     if (getState().loadTemperature) { return; } // already loading
@@ -194,7 +195,8 @@ export const fetchTemperature = () => {
     fetch('/api/futurehome/livingroomTemperature')
       .then((response) => {
         response.json().then((data) => {
-          dispatch(loadTemperatureSuccess(data.temperature));
+          counter = counter + 1;
+          dispatch(loadTemperatureSuccess(`${data.temperature} c: ${counter}`));
         });
       }).catch(() => {
         dispatch(loadTemperatureError());

@@ -8,7 +8,6 @@ const config = {
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'app-[hash:8].js',
-    publicPath: 'http://localhost:' + (process.env.HTTP || 3000) + '/'
   },
   module: {
     rules: [
