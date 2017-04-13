@@ -78,7 +78,7 @@ class App extends Component {
         <li>
           <Button
             label="Slå på lyset"
-            iconUrl="lightbulb.png"
+            iconUrl="assets/lightbulb.png"
             loading={turnOnLightsActive}
             onClick={this.turnOnLights}
           />
@@ -86,7 +86,7 @@ class App extends Component {
         <li>
           <Button
             label="Slå av lyset"
-            iconUrl="lightbulb_off.png"
+            iconUrl="assets/lightbulb_off.png"
             loading={turnOffLigthsActive}
             onClick={this.turnOffLights}
           />
@@ -137,7 +137,7 @@ class App extends Component {
           <li>
             <Button
               label="Slå av alt"
-              iconUrl="off.png"
+              iconUrl="assets/off.png"
               loading={turnOffEverythingActive}
               onClick={this.turnOffEverything}
             />

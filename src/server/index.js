@@ -8,7 +8,6 @@ import favicon from 'koa-favicon';
 
 const app = new Koa();
 app.use(convert(serve({rootDir: path.join(__dirname, '..', '..', 'build')})));
-app.use(convert(serve({rootDir: path.join(__dirname, '..', '..', 'assets')})));
 app.use(favicon(path.join(__dirname, '..', '..', 'assets', 'favicon.ico')));
 
 // proxy all api calls to api server

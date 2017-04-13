@@ -3,6 +3,7 @@ const path = require('path');
 const ExtractCSS = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require("offline-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const config = {
   devtool: 'none',
@@ -52,6 +53,9 @@ const config = {
       NODE_ENV: 'production',
       DEBUG: false
     }),
+    new CopyWebpackPlugin(
+      [{ from: "assets", to: "assets" }]
+    ),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/templates/default.hbs',
@@ -66,7 +70,6 @@ const config = {
       caches: "all",
       responseStrategy: "network-first", // 'cache-first' | 'network-first'
       updateStrategy: "changed", // 'changed' | 'all',
-      externals: ['home.png', 'lightbulb.png', 'lightbulb_off.png', 'off.png'],
     })
   ]
 };
