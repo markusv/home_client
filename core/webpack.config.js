@@ -17,7 +17,7 @@ const config = {
     ]
   },
   devServer: {
-    contentBase: './assets',
+    contentBase: './',
     port: process.env.HTTP || 3000,
     noInfo: false,
     hot: true,

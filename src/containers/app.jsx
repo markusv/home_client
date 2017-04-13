@@ -30,11 +30,13 @@ class App extends Component {
 
   componentWillMount() {
     this.fetchTemperature();
-    document.addEventListener('visibilitychange', this.handleVisibilityChange, false);
+//    document.addEventListener('visibilitychange', this.handleVisibilityChange, false);
+    window.addEventListener('pageshow', this.handleVisibilityChange, false);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+//    document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+    document.removeEventListener('pageshow', this.handleVisibilityChange);
   }
 
   componentWillReceiveProps(nextProps) {
