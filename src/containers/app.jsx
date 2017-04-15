@@ -26,12 +26,24 @@ class App extends Component {
     this.startListenToMusic = this.startListenToMusic.bind(this);
     this.starWatchAppleTv = this.starWatchAppleTv.bind(this);
     this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
+    this.onBlurHandler = this.onBlurHandler.bind(this);
+    this.onFocusHandler = this.onFocusHandler.bind(this);
   }
 
   componentWillMount() {
     this.fetchTemperature();
 //    document.addEventListener('visibilitychange', this.handleVisibilityChange, false);
     window.addEventListener('pageshow', this.handleVisibilityChange, false);
+    window.addEventListener('blur', this.onBlurHandler, false);
+    window.addEventListener('focus', this.onFocusHandler, false);
+  }
+
+  onFocusHandler() {
+    this.logg('onFocusHandler');
+  }
+
+  onBlurHandler() {
+    this.logg('onBlurHandler');
   }
 
   componentWillUnmount() {
@@ -46,6 +58,7 @@ class App extends Component {
   }
 
   handleVisibilityChange() {
+    this.logg('handleVisibilityChange');
     this.props.dispatch(setVisibility(!document.hidden));
   }
 
@@ -128,6 +141,11 @@ class App extends Component {
     );
   }
 
+  logg(text) {
+    if (!document.getElementById("log")) return;
+    document.getElementById("log").innerHTML += `<div>${text}</div>`;
+  }
+
   render() {
     const { turnOffEverythingActive } = this.props;
     return (
@@ -147,6 +165,7 @@ class App extends Component {
         </ul>
         { this.renderLightsButtons() }
         { this.renderHarmonyButtons() }
+        <div id="log" />
       </div>
     );
   }
