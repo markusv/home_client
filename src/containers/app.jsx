@@ -10,7 +10,6 @@ import {
   listenToMusic,
   watchAppleTv,
   fetchTemperature,
-  setVisibility,
   openWebSocket
 } from '../actions/actions.js';
 import Temperature from '../components/temperature/temperature.jsx';
@@ -26,42 +25,11 @@ class App extends Component {
     this.turnOffEverything = this.turnOffEverything.bind(this);
     this.startListenToMusic = this.startListenToMusic.bind(this);
     this.starWatchAppleTv = this.starWatchAppleTv.bind(this);
-    this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
-    this.onBlurHandler = this.onBlurHandler.bind(this);
-    this.onFocusHandler = this.onFocusHandler.bind(this);
   }
 
   componentWillMount() {
     this.fetchTemperature();
     this.props.dispatch(openWebSocket());
-//    document.addEventListener('visibilitychange', this.handleVisibilityChange, false);
-    window.addEventListener('pageshow', this.handleVisibilityChange, false);
-    window.addEventListener('blur', this.onBlurHandler, false);
-    window.addEventListener('focus', this.onFocusHandler, false);
-  }
-
-  onFocusHandler() {
-    this.logg('onFocusHandler');
-  }
-
-  onBlurHandler() {
-    this.logg('onBlurHandler');
-  }
-
-  componentWillUnmount() {
-//    document.removeEventListener('visibilitychange', this.handleVisibilityChange);
-    document.removeEventListener('pageshow', this.handleVisibilityChange);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.visible && nextProps.visible) {
-      this.props.dispatch(fetchTemperature());
-    }
-  }
-
-  handleVisibilityChange() {
-    this.logg('handleVisibilityChange');
-    this.props.dispatch(setVisibility(!document.hidden));
   }
 
   fetchTemperature() {
@@ -89,25 +57,28 @@ class App extends Component {
   }
 
   renderLightsButtons() {
-    const { turnOnLightsActive, turnOffLigthsActive } = this.props;
+    const { turnOnLightsActive, turnOffLigthsActive, lightsOn } = this.props;
     return (
       <ul className="buttonList clearfix">
-        <li>
-          <Button
-            label="Slå på lyset"
-            iconUrl="assets/lightbulb.png"
-            loading={turnOnLightsActive}
-            onClick={this.turnOnLights}
-          />
-        </li>
-        <li>
-          <Button
-            label="Slå av lyset"
-            iconUrl="assets/lightbulb_off.png"
-            loading={turnOffLigthsActive}
-            onClick={this.turnOffLights}
-          />
-        </li>
+        {!lightsOn ?
+          <li>
+            <Button
+              label="Slå på lyset"
+              iconUrl="assets/lightbulb.png"
+              loading={turnOnLightsActive}
+              onClick={this.turnOnLights}
+            />
+          </li>
+          :
+          <li>
+            <Button
+              label="Slå av lyset"
+              iconUrl="assets/lightbulb_off.png"
+              loading={turnOffLigthsActive}
+              onClick={this.turnOffLights}
+            />
+          </li>
+        }
       </ul>
     );
   }
@@ -143,11 +114,6 @@ class App extends Component {
     );
   }
 
-  logg(text) {
-    if (!document.getElementById('log')) { return; }
-    document.getElementById('log').innerHTML += `<div>${text}</div>`;
-  }
-
   render() {
     const { turnOffEverythingActive } = this.props;
     return (
@@ -167,7 +133,6 @@ class App extends Component {
         </ul>
         { this.renderLightsButtons() }
         { this.renderHarmonyButtons() }
-        <div id="log" />
       </div>
     );
   }
@@ -175,14 +140,14 @@ class App extends Component {
 
 const select = (state) => {
   return {
-    turnOnLightsActive: state.turnOnLightsActive,
-    turnOffLigthsActive: state.turnOffLigthsActive,
-    turnOffEverythingActive: state.turnOffEverythingActive,
-    listenToMusic: state.listenToMusic,
-    watchAppleTv: state.watchAppleTv,
-    loadTemperature: state.loadTemperature,
-    temperature: state.temperature,
-    visible: state.visible
+    turnOnLightsActive: state.lights.turnOnLightsActive,
+    turnOffLigthsActive: state.lights.turnOffLigthsActive,
+    lightsOn: state.lights.lightsOn,
+    turnOffEverythingActive: state.activities.turnOffEverythingActive,
+    listenToMusic: state.activities.listenToMusic,
+    watchAppleTv: state.activities.watchAppleTv,
+    loadTemperature: state.temperature.loadTemperature,
+    temperature: state.temperature.temperature
   };
 };
 

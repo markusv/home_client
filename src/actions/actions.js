@@ -18,7 +18,8 @@ export const WATCH_APPLE_TV_ERROR = 'WATCH_APPLE_TV_ERROR';
 export const LOAD_TEMPERATURE = 'LOAD_TEMPERATURE';
 export const LOAD_TEMPERATURE_SUCCESS = 'LOAD_TEMPERATURE_SUCCESS';
 export const LOAD_TEMPERATURE_ERROR = 'LOAD_TEMPERATURE_ERROR';
-export const VISIBLITY_CHANGE = 'VISIBLITY_CHANGE';
+export const SET_TEMPERATURE = 'SET_TEMPERATURE';
+export const SET_LIGHTSON_STATUS = 'SET_LIGHTSON_STATUS';
 
 const turnOffEverythingStart = () => {
   return {
@@ -176,6 +177,13 @@ const loadTemperatureStart = () => {
   };
 };
 
+const setTemperature = (temperature) => {
+  return {
+    type: SET_TEMPERATURE,
+    temperature
+  };
+};
+
 const loadTemperatureSuccess = (temperature) => {
   return {
     type: LOAD_TEMPERATURE_SUCCESS,
@@ -206,18 +214,31 @@ export const fetchTemperature = () => {
   };
 };
 
-export const setVisibility = (visible) => {
+const setLightsStatus = (on) => {
   return {
-    type: VISIBLITY_CHANGE,
-    visible
+    type: SET_LIGHTSON_STATUS,
+    on
   };
 };
 
+const processWsMessage = (message, dispatch) => {
+  switch(message.type) {
+    case 'livingroomTempChanged':
+      dispatch(setTemperature(message.temperature));
+      break;
+    case 'futurehomeModeChange':
+      dispatch(setLightsStatus(message.mode === 'home'));
+      break;
+    default:
+      break;
+  }
+};
+
 export const openWebSocket = () => {
-  return () => {
+  return (dispatch) => {
     const ws = new WebSocket(config.clientWsUrl);
     ws.onmessage = function (event) {
-      console.log('message', event.data);
+      processWsMessage(JSON.parse(event.data), dispatch);
     };
   };
 };
