@@ -1,3 +1,5 @@
+import config from '../config/config.js';
+
 export const TURN_OFF_EVERYTHING = 'TURN_OFF_EVERYTHING';
 export const TURN_OFF_EVERYTHING_SUCCESS = 'TURN_OFF_EVERYTHING_DONE';
 export const TURN_OFF_EVERYTHING_ERROR = 'TURN_OFF_EVERYTHING_ERROR';
@@ -208,5 +210,14 @@ export const setVisibility = (visible) => {
   return {
     type: VISIBLITY_CHANGE,
     visible
+  };
+};
+
+export const openWebSocket = () => {
+  return () => {
+    const ws = new WebSocket(config.clientWsUrl);
+    ws.onmessage = function (event) {
+      console.log('message', event.data);
+    };
   };
 };

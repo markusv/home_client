@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
 const config = {
   entry: path.join(__dirname, '..', 'src', 'entry.jsx'),
   output: {
@@ -17,12 +16,17 @@ const config = {
     ]
   },
   devServer: {
-    contentBase: './',
+    contentBase: path.join(__dirname, '..'),
     port: process.env.HTTP || 3000,
     noInfo: false,
     hot: true,
     inline: true,
     proxy: {
+      '/ws': {
+        target: 'ws://localhost:8080',
+        ws: true,
+        pathRewrite: {"^/ws" : ""}
+      },
       '/api': {
         target: 'http://localhost:9333',
         pathRewrite: {"^/api" : ""}

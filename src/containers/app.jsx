@@ -10,7 +10,8 @@ import {
   listenToMusic,
   watchAppleTv,
   fetchTemperature,
-  setVisibility
+  setVisibility,
+  openWebSocket
 } from '../actions/actions.js';
 import Temperature from '../components/temperature/temperature.jsx';
 import './style.scss';
@@ -32,6 +33,7 @@ class App extends Component {
 
   componentWillMount() {
     this.fetchTemperature();
+    this.props.dispatch(openWebSocket());
 //    document.addEventListener('visibilitychange', this.handleVisibilityChange, false);
     window.addEventListener('pageshow', this.handleVisibilityChange, false);
     window.addEventListener('blur', this.onBlurHandler, false);
@@ -142,8 +144,8 @@ class App extends Component {
   }
 
   logg(text) {
-    if (!document.getElementById("log")) return;
-    document.getElementById("log").innerHTML += `<div>${text}</div>`;
+    if (!document.getElementById('log')) { return; }
+    document.getElementById('log').innerHTML += `<div>${text}</div>`;
   }
 
   render() {
