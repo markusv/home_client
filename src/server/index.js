@@ -18,7 +18,7 @@ app.use(proxy('/api', {
   rewrite: (path) => path.replace(/^\/api/, '')
 }));
 
-const server = app.listen(process.env.HTTP || 3000); //eslint-disable-line no-process-env
+app.listen(process.env.HTTP || 3000); //eslint-disable-line no-process-env
 module.exports = app;
 
 httpProxy.createServer({

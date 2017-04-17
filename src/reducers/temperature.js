@@ -1,7 +1,8 @@
 import {
   LOAD_TEMPERATURE,
   LOAD_TEMPERATURE_SUCCESS,
-  LOAD_TEMPERATURE_ERROR
+  LOAD_TEMPERATURE_ERROR,
+  SET_TEMPERATURE
 } from '../actions/actions';
 
 
@@ -23,6 +24,10 @@ export default (state = initialState, action) => {
     case LOAD_TEMPERATURE_ERROR:
       return Object.assign({}, state, {
         loadTemperature: false
+      });
+    case SET_TEMPERATURE:
+      return Object.assign({}, state, {
+        temperature: action.temperature
       });
     default:
       return state;

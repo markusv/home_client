@@ -9,7 +9,7 @@ import {
   turnOffEverything,
   listenToMusic,
   watchAppleTv,
-  fetchTemperature,
+  loadInitialState,
   openWebSocket
 } from '../actions/actions.js';
 import Temperature from '../components/temperature/temperature.jsx';
@@ -28,12 +28,12 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.fetchTemperature();
+    this.loadInitialState();
     this.props.dispatch(openWebSocket());
   }
 
-  fetchTemperature() {
-    this.props.dispatch(fetchTemperature());
+  loadInitialState() {
+    this.props.dispatch(loadInitialState());
   }
 
   turnOffEverything() {

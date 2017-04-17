@@ -214,10 +214,26 @@ export const fetchTemperature = () => {
   };
 };
 
+const areLightsOnWithMode = (mode) => {
+  return mode === 'home';
+};
+
 const setLightsStatus = (on) => {
   return {
     type: SET_LIGHTSON_STATUS,
     on
+  };
+};
+
+export const loadInitialState = () => {
+  return (dispatch) => {
+    fetch('/api/state')
+      .then((response) => {
+        response.json().then((data) => {
+          dispatch(setLightsStatus(areLightsOnWithMode(data.mode)));
+          dispatch(setTemperature(data.temperature));
+        });
+      });
   };
 };
 
@@ -227,7 +243,7 @@ const processWsMessage = (message, dispatch) => {
       dispatch(setTemperature(message.temperature));
       break;
     case 'futurehomeModeChange':
-      dispatch(setLightsStatus(message.mode === 'home'));
+      dispatch(setLightsStatus(areLightsOnWithMode(message.mode)));
       break;
     default:
       break;
