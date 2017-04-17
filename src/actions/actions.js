@@ -237,6 +237,11 @@ export const loadInitialState = () => {
   };
 };
 
+const log = (text) => {
+  const el = document.getElementById('log');
+  el.innerHTML += `<div>${text}</div>`;
+};
+
 const processWsMessage = (message, dispatch) => {
   switch(message.type) {
     case 'livingroomTempChanged':
@@ -254,7 +259,14 @@ export const openWebSocket = () => {
   return (dispatch) => {
     const ws = new WebSocket(config.clientWsUrl);
     ws.onmessage = function (event) {
+      log('ws on message', event.data);
       processWsMessage(JSON.parse(event.data), dispatch);
+    };
+    ws.onopen = function (event) {
+      log('ws on open', JSON.stringify(event));
+    };
+    ws.onclose = function(event) {
+      log('ws on close', JSON.stringify(event));
     };
   };
 };

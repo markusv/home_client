@@ -132,6 +132,7 @@ class App extends Component {
         </ul>
         { this.renderLightsButtons() }
         { this.renderHarmonyButtons() }
+        <div id="log" />
       </div>
     );
   }
