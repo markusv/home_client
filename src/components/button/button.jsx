@@ -13,7 +13,7 @@ export default function MovieListItem(props) {
       <div>
         {image}
       </div>
-      {props.label}
+      {props.label ? props.label : null}
     </button>
   );
 }

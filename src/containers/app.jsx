@@ -124,7 +124,6 @@ class App extends Component {
         <ul className="buttonList clearfix turnOffList">
           <li>
             <Button
-              label="Slå av alt"
               iconUrl="assets/off.png"
               loading={turnOffEverythingActive}
               onClick={this.turnOffEverything}
