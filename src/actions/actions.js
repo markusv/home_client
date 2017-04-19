@@ -262,11 +262,14 @@ export const openWebSocket = () => {
       log('ws on message', event.data);
       processWsMessage(JSON.parse(event.data), dispatch);
     };
+    let start = 0;
     ws.onopen = function (event) {
-      log('ws on open', JSON.stringify(event));
+      start = (new Date()).getTime();
+      log('ws on open ' + JSON.stringify(event));
     };
     ws.onclose = function(event) {
-      log('ws on close', JSON.stringify(event));
+      log("close", start)
+      log('ws on close: ' + ((new Date()).getTime() - start) + JSON.stringify(event));
     };
   };
 };
