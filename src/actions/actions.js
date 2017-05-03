@@ -257,19 +257,33 @@ const processWsMessage = (message, dispatch) => {
 
 export const openWebSocket = () => {
   return (dispatch) => {
-    const ws = new WebSocket(config.clientWsUrl);
-    ws.onmessage = function (event) {
+    connectoToWs(0, (event) => {
       log('ws on message', event.data);
       processWsMessage(JSON.parse(event.data), dispatch);
-    };
-    let start = 0;
-    ws.onopen = function (event) {
-      start = (new Date()).getTime();
-      log('ws on open ' + JSON.stringify(event));
-    };
-    ws.onclose = function(event) {
-      log("close", start)
-      log('ws on close: ' + ((new Date()).getTime() - start) + JSON.stringify(event));
-    };
+    });
   };
 };
+
+
+function connectoToWs(counter, processWsMessage) {
+  if (counter === 10) { return; } // stop trying after 10 errors
+
+  let retryCounter = counter;
+  const ws = new WebSocket(config.clientWsUrl);
+  ws.onmessage = processWsMessage;
+  let start = 0;
+  ws.onopen = function (event) {
+    retryCounter = 0;
+    start = (new Date()).getTime();
+    log(`ws on open ${JSON.stringify(event)}`);
+  };
+  ws.onclose = function(event) {
+    log('close', start);
+    log(`ws on close: ${((new Date()).getTime() - start)} ${JSON.stringify(event)}`);
+    retryCounter++;
+    log(`reconnect retryCounter: ${retryCounter}`);
+    window.setTimeout(() => {
+      connectoToWs(retryCounter, processWsMessage);
+    }, 1000);
+  };
+}
