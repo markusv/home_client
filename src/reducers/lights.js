@@ -22,6 +22,10 @@ export default (state = initialState, action) => {
         turnOnLightsActive: true
       });
     case TURN_ON_LIGHTS_SUCCESS:
+      return Object.assign({}, state, {
+        lightsOn: true,
+        turnOnLightsActive: false
+      });
     case TURN_ON_LIGHTS_ERROR:
       return Object.assign({}, state, {
         turnOnLightsActive: false
@@ -31,6 +35,10 @@ export default (state = initialState, action) => {
         turnOffLigthsActive: true
       });
     case TURN_OFF_LIGHTS_SUCCESS:
+      return Object.assign({}, state, {
+        lightsOn: false,
+        turnOffLigthsActive: false
+      });
     case TURN_OFF_LIGHTS_ERROR:
       return Object.assign({}, state, {
         turnOffLigthsActive: false
