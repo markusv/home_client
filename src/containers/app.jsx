@@ -9,8 +9,7 @@ import {
   turnOffEverything,
   listenToMusic,
   watchAppleTv,
-  loadInitialState,
-  openWebSocket
+  loadInitialState
 } from '../actions/actions.js';
 import Temperature from '../components/temperature/temperature.jsx';
 import './style.scss';
@@ -29,7 +28,7 @@ class App extends Component {
 
   componentWillMount() {
     this.loadInitialState();
-    this.props.dispatch(openWebSocket());
+//    this.props.dispatch(openWebSocket());
   }
 
   loadInitialState() {
@@ -57,28 +56,25 @@ class App extends Component {
   }
 
   renderLightsButtons() {
-    const { turnOnLightsActive, turnOffLigthsActive, lightsOn } = this.props;
+    const { turnOnLightsActive, turnOffLigthsActive } = this.props;
     return (
       <ul className="buttonList clearfix">
-        {!lightsOn ?
-          <li>
-            <Button
-              label="Slå på lyset"
-              iconUrl="assets/lightbulb.png"
-              loading={turnOnLightsActive}
-              onClick={this.turnOnLights}
-            />
-          </li>
-          :
-          <li>
-            <Button
-              label="Slå av lyset"
-              iconUrl="assets/lightbulb_off.png"
-              loading={turnOffLigthsActive}
-              onClick={this.turnOffLights}
-            />
-          </li>
-        }
+        <li>
+          <Button
+            label="Slå på lyset"
+            iconUrl="assets/lightbulb.png"
+            loading={turnOnLightsActive}
+            onClick={this.turnOnLights}
+          />
+        </li>
+        <li>
+          <Button
+            label="Slå av lyset"
+            iconUrl="assets/lightbulb_off.png"
+            loading={turnOffLigthsActive}
+            onClick={this.turnOffLights}
+          />
+        </li>
       </ul>
     );
   }
