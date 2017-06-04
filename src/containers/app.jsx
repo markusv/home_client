@@ -9,7 +9,8 @@ import {
   turnOffEverything,
   listenToMusic,
   watchAppleTv,
-  loadInitialState
+  loadInitialState,
+  fetchTemperature
 } from '../actions/actions.js';
 import Temperature from '../components/temperature/temperature.jsx';
 import './style.scss';
@@ -28,7 +29,16 @@ class App extends Component {
 
   componentWillMount() {
     this.loadInitialState();
+    window.addEventListener('focus', this.onFocusHandler, false);
 //    this.props.dispatch(openWebSocket());
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('focus', this.onFocusHandler);
+  }
+
+  onFocusHandler() {
+    this.props.dispatch(fetchTemperature());
   }
 
   loadInitialState() {
