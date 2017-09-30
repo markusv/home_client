@@ -113,7 +113,7 @@ export const turnOnLightsABit = () => {
         dispatch(turnOnLightsABitSuccess());
       }).catch(() => {
         dispatch(turnOnLightsABitError());
-    });
+      });
   };
 };
 
@@ -233,7 +233,7 @@ export const watchMovie = () => {
         dispatch(watchMovieSuccess());
       }).catch(() => {
         dispatch(watchMovieError());
-    });
+      });
   };
 };
 
