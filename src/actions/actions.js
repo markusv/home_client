@@ -6,6 +6,9 @@ export const TURN_OFF_EVERYTHING_ERROR = 'TURN_OFF_EVERYTHING_ERROR';
 export const TURN_ON_LIGHTS = 'TURN_ON_LIGHTS';
 export const TURN_ON_LIGHTS_SUCCESS = 'TURN_ON_LIGHTS_SUCCESS';
 export const TURN_ON_LIGHTS_ERROR = 'TURN_ON_LIGHTS_ERROR';
+export const TURN_ON_LIGHTS_ABIT = 'TURN_ON_LIGHTS_ABIT';
+export const TURN_ON_LIGHTS_ABIT_SUCCESS = 'TURN_ON_LIGHTS_ABIT_SUCCESS';
+export const TURN_ON_LIGHTS_ABIT_ERROR = 'TURN_ON_LIGHTS_ABIT_ERROR';
 export const TURN_OFF_LIGHTS = 'TURN_OFF_LIGHTS';
 export const TURN_OFF_LIGHTS_SUCCESS = 'TURN_OFF_LIGHTS_SUCCESS';
 export const TURN_OFF_LIGHTS_ERROR = 'TURN_OFF_LIGHTS_ERROR';
@@ -15,6 +18,9 @@ export const LISTEN_TO_MUSIC_ERROR = 'LISTEN_TO_MUSIC_ERROR';
 export const WATCH_APPLE_TV = 'WATCH_APPLE_TV';
 export const WATCH_APPLE_TV_SUCCESS = 'WATCH_APPLE_TV_SUCCESS';
 export const WATCH_APPLE_TV_ERROR = 'WATCH_APPLE_TV_ERROR';
+export const WATCH_MOVIE = 'WATCH_MOVIE';
+export const WATCH_MOVIE_SUCCESS = 'WATCH_MOVIE_SUCCESS';
+export const WATCH_MOVIE_ERROR = 'WATCH_MOVIE_ERROR';
 export const LOAD_TEMPERATURE = 'LOAD_TEMPERATURE';
 export const LOAD_TEMPERATURE_SUCCESS = 'LOAD_TEMPERATURE_SUCCESS';
 export const LOAD_TEMPERATURE_ERROR = 'LOAD_TEMPERATURE_ERROR';
@@ -78,6 +84,36 @@ export const turnOnLights = () => {
       }).catch(() => {
         dispatch(turnOnLightsError());
       });
+  };
+};
+
+const turnOnLightsABitStart = () => {
+  return {
+    type: TURN_ON_LIGHTS_ABIT
+  };
+};
+
+const turnOnLightsABitSuccess = () => {
+  return {
+    type: TURN_ON_LIGHTS_ABIT_SUCCESS
+  };
+};
+
+const turnOnLightsABitError = () => {
+  return {
+    type: TURN_ON_LIGHTS_ABIT_ERROR
+  };
+};
+
+export const turnOnLightsABit = () => {
+  return (dispatch) => {
+    dispatch(turnOnLightsABitStart());
+    fetch('/api/futurehome/shortcut/littlys')
+      .then(() => {
+        dispatch(turnOnLightsABitSuccess());
+      }).catch(() => {
+        dispatch(turnOnLightsABitError());
+    });
   };
 };
 
@@ -168,6 +204,36 @@ export const watchAppleTv = () => {
       }).catch(() => {
         dispatch(watchAppleTvError());
       });
+  };
+};
+
+const watchMovieStart = () => {
+  return {
+    type: WATCH_MOVIE
+  };
+};
+
+const watchMovieSuccess = () => {
+  return {
+    type: WATCH_MOVIE_SUCCESS
+  };
+};
+
+const watchMovieError = () => {
+  return {
+    type: WATCH_MOVIE_ERROR
+  };
+};
+
+export const watchMovie = () => {
+  return (dispatch) => {
+    dispatch(watchMovieStart());
+    fetch('/api/harmony/movie')
+      .then(() => {
+        dispatch(watchMovieSuccess());
+      }).catch(() => {
+        dispatch(watchMovieError());
+    });
   };
 };
 

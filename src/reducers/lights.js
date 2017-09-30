@@ -3,6 +3,9 @@ import {
   TURN_ON_LIGHTS,
   TURN_ON_LIGHTS_SUCCESS,
   TURN_ON_LIGHTS_ERROR,
+  TURN_ON_LIGHTS_ABIT,
+  TURN_ON_LIGHTS_ABIT_SUCCESS,
+  TURN_ON_LIGHTS_ABIT_ERROR,
   TURN_OFF_LIGHTS,
   TURN_OFF_LIGHTS_SUCCESS,
   TURN_OFF_LIGHTS_ERROR,
@@ -11,6 +14,7 @@ import {
 
 const initialState = {
   turnOnLightsActive: false,
+  turnOnLightsABitActive: false,
   turnOffLigthsActive: false,
   lightsOn: false
 };
@@ -29,6 +33,19 @@ export default (state = initialState, action) => {
     case TURN_ON_LIGHTS_ERROR:
       return Object.assign({}, state, {
         turnOnLightsActive: false
+      });
+    case TURN_ON_LIGHTS_ABIT:
+      return Object.assign({}, state, {
+        turnOnLightsABitActive: true
+      });
+    case TURN_ON_LIGHTS_ABIT_SUCCESS:
+      return Object.assign({}, state, {
+        lightsOn: true,
+        turnOnLightsABitActive: false
+      });
+    case TURN_ON_LIGHTS_ABIT_ERROR:
+      return Object.assign({}, state, {
+        turnOnLightsABitActive: false
       });
     case TURN_OFF_LIGHTS:
       return Object.assign({}, state, {

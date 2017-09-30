@@ -10,7 +10,9 @@ import {
   listenToMusic,
   watchAppleTv,
   loadInitialState,
-  fetchTemperature
+  fetchTemperature,
+  turnOnLightsABit,
+  watchMovie
 } from '../actions/actions.js';
 import Temperature from '../components/temperature/temperature.jsx';
 import './style.scss';
@@ -21,10 +23,13 @@ class App extends Component {
     super(props);
 
     this.turnOnLights = this.turnOnLights.bind(this);
+    this.turnOnLightsABit = this.turnOnLightsABit.bind(this);
+    this.onFocusHandler = this.onFocusHandler.bind(this);
     this.turnOffLights = this.turnOffLights.bind(this);
     this.turnOffEverything = this.turnOffEverything.bind(this);
     this.startListenToMusic = this.startListenToMusic.bind(this);
     this.starWatchAppleTv = this.starWatchAppleTv.bind(this);
+    this.starWatchMovie = this.starWatchMovie.bind(this);
   }
 
   componentWillMount() {
@@ -49,6 +54,10 @@ class App extends Component {
     this.props.dispatch(turnOffEverything());
   }
 
+  turnOnLightsABit() {
+    this.props.dispatch(turnOnLightsABit());
+  }
+
   turnOnLights() {
     this.props.dispatch(turnOnLights());
   }
@@ -65,13 +74,25 @@ class App extends Component {
     this.props.dispatch(watchAppleTv());
   }
 
+  starWatchMovie() {
+    this.props.dispatch(watchMovie());
+  }
+
   renderLightsButtons() {
-    const { turnOnLightsActive, turnOffLigthsActive } = this.props;
+    const { turnOnLightsActive, turnOffLigthsActive, turnOnLightsABitActive } = this.props;
     return (
       <ul className="buttonList clearfix">
         <li>
           <Button
-            label="Slå på lyset"
+            label="Litt lys"
+            iconUrl="assets/lightbulb.png"
+            loading={turnOnLightsABitActive}
+            onClick={this.turnOnLightsABit}
+          />
+        </li>
+        <li>
+          <Button
+            label="Lys"
             iconUrl="assets/lightbulb.png"
             loading={turnOnLightsActive}
             onClick={this.turnOnLights}
@@ -79,7 +100,7 @@ class App extends Component {
         </li>
         <li>
           <Button
-            label="Slå av lyset"
+            label="Ikke noe lys"
             iconUrl="assets/lightbulb_off.png"
             loading={turnOffLigthsActive}
             onClick={this.turnOffLights}
@@ -90,7 +111,7 @@ class App extends Component {
   }
 
   renderHarmonyButtons() {
-    const { listenToMusic, watchAppleTv } = this.props;
+    const { listenToMusic, watchAppleTv, watchMovie } = this.props;
     return (
       <ul className="buttonList clearfix">
         <li>
@@ -105,6 +126,13 @@ class App extends Component {
             label="Se på Apple-tv"
             loading={watchAppleTv}
             onClick={this.starWatchAppleTv}
+          />
+        </li>
+        <li>
+          <Button
+            label="Film"
+            loading={watchMovie}
+            onClick={this.starWatchMovie}
           />
         </li>
       </ul>
@@ -147,11 +175,13 @@ class App extends Component {
 const select = (state) => {
   return {
     turnOnLightsActive: state.lights.turnOnLightsActive,
+    turnOnLightsABitActive: state.lights.turnOnLightsABitActive,
     turnOffLigthsActive: state.lights.turnOffLigthsActive,
     lightsOn: state.lights.lightsOn,
     turnOffEverythingActive: state.activities.turnOffEverythingActive,
     listenToMusic: state.activities.listenToMusic,
     watchAppleTv: state.activities.watchAppleTv,
+    watchMovie: state.activities.watchMovie,
     loadTemperature: state.temperature.loadTemperature,
     temperature: state.temperature.temperature
   };

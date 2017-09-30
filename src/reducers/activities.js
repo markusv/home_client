@@ -8,6 +8,9 @@ import {
   WATCH_APPLE_TV,
   WATCH_APPLE_TV_SUCCESS,
   WATCH_APPLE_TV_ERROR,
+  WATCH_MOVIE,
+  WATCH_MOVIE_SUCCESS,
+  WATCH_MOVIE_ERROR
 } from '../actions/actions';
 
 
@@ -17,6 +20,7 @@ const initialState = {
   turnOffEverythingActive: false,
   listenToMusic: false,
   watchAppleTv: false,
+  watchMovie: false
 };
 
 export default (state = initialState, action) => {
@@ -47,6 +51,15 @@ export default (state = initialState, action) => {
     case WATCH_APPLE_TV_ERROR:
       return Object.assign({}, state, {
         watchAppleTv: false
+      });
+    case WATCH_MOVIE:
+      return Object.assign({}, state, {
+        watchMovie: true
+      });
+    case WATCH_MOVIE_SUCCESS:
+    case WATCH_MOVIE_ERROR:
+      return Object.assign({}, state, {
+        watchMovie: false
       });
     default:
       return state;
